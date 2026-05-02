@@ -1,0 +1,21 @@
+model Post {
+    id        String   @id @default(cuid())
+
+    title     String   @unique
+    text      String   
+    banner    String?
+
+    ownerId   String   @map("owner_id")
+    owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+    channelId String   @map("channel_id")
+    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+    likes     Like[]
+    comments  Comment[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt      @map("updated_at")
+
+    @@map("posts")
+}

@@ -1,0 +1,24 @@
+model User {
+    id        String  @id @default(cuid())
+
+    name      String  @unique
+    email     String  @unique
+    password  String
+    role      String  @default("USER")
+    avatar    String?
+
+    telegramId            String? @map("telegram_id")
+    telegramNotifications Boolean @default(false) @map("telegram_notifications")
+
+    sessions      Session[]
+    channels      Channel[]
+    posts         Post[]
+    likes         Like[]
+    comments      Comment[]
+    subscriptions Subscription[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt      @map("updated_at")
+
+    @@map("users")
+}

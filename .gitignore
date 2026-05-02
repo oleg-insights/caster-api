@@ -1,0 +1,8 @@
+node_modules/
+dist/
+notes/
+.env
+.env.*
+
+!.env.example
+!.env.test.example

@@ -1,0 +1,18 @@
+model Comment {
+    id        String   @id @default(cuid())
+
+    text      String
+
+    authorId  String   @map("author_id")
+    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+    postId    String   @map("post_id")
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    likes     Like[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt      @map("updated_at")
+
+    @@map("comments")
+}

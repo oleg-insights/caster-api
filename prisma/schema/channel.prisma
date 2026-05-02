@@ -1,0 +1,19 @@
+model Channel {
+    id          String   @id @default(cuid())
+
+    title       String   @unique
+    description String?
+    avatar      String?
+    banner      String?
+
+    ownerId     String   @map("owner_id")
+    owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+    posts       Post[]
+    subscribers Subscription[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt      @map("updated_at")
+
+    @@map("channels")
+}

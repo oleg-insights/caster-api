@@ -1,0 +1,14 @@
+model Subscription {
+    id           String   @id @default(cuid())
+
+    subscriberId String   @map("subscriber_id")
+    subscriber   User     @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+
+    channelId    String   @map("channel_id")
+    channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+    createdAt    DateTime @default(now()) @map("created_at")
+
+    @@unique([subscriberId, channelId])
+    @@map("subscriptions")
+}

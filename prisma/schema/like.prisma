@@ -1,0 +1,18 @@
+model Like {
+    id        String   @id @default(cuid())
+
+    ownerId   String   @map("owner_id")
+    owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+    postId    String?  @map("post_id")
+    post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    commentId String?  @map("comment_id")
+    comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@unique([ownerId, postId])
+    @@unique([ownerId, commentId])
+    @@map("likes")
+}
