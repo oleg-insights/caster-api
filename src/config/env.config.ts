@@ -13,8 +13,8 @@ const envSchema = z.object({
     JWT_REFRESH_SECRET: z.string().min(1, 'REFRESH_SECRET is required'),
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     INITIAL_ADMIN_PASSWORD: z.string().min(1),
-    TELEGRAM_TOKEN: z.string().min(1, 'TELEGRAM_TOKEN is required'),
-    TG_CHAT_ID: z.string().min(1, 'TG_CHAT_ID is required'),
+    TELEGRAM_TOKEN: z.string().optional().or(z.literal("")),
+    TG_CHAT_ID: z.string().optional().or(z.literal("")),
     ENABLE_SWAGGER: z.enum(['true', 'false']).default('false'),
     REDIS_URL: z.string().url()
 })

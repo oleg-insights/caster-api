@@ -36,17 +36,22 @@ const labels: Partial<Record<ActionType, Partial<Record<TargetType, string>>>> =
 const telegramToken = process.env.TELEGRAM_TOKEN
 
 export const sendNotification = async (data: INotificationData) => {
+    if (!telegramToken || telegramToken.trim() === '') {
+        console.warn('[Telegram Service]: No token provided')
+        return
+    }
+
     const recipient = await prisma.user.findUnique({ where: { id: data.recipientId } })
 
-    if (!recipient) throw new AppError(404, 'Recipient not found')
+    if (!recipient) throw new AppError(404, '[Telegram Service]: Recipient not found')
 
     if (!recipient.telegramNotifications) {
-        console.error('Recipient notifications disabled')
+        console.error('[Telegram Service]: Recipient notifications disabled')
         return
     }
 
     if (!recipient.telegramId) {
-        console.error('User telegram id is missing')
+        console.error('[Telegram Service]: User telegram id is missing')
         return
     } 
 
