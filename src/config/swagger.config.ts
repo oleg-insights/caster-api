@@ -549,6 +549,10 @@ const swaggerOptions = {
         },
         servers: [
             { 
+                url: 'https://caster-api.onrender.com/', 
+                description: 'Основной сервер (production)'
+            },
+            { 
                 url: 'http://localhost:3000', 
                 description: 'Локальный сервер разработки' 
             }
